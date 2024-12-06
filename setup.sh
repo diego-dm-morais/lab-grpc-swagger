@@ -35,12 +35,14 @@ echo "export GOROOT=$GOPATH" >> ~/.zshrc
 echo "export PATH=\$PATH:\$GOROOT/bin" >> ~/.zshrc
 echo "export PATH=\$PATH:\$GOPATH/bin" >> ~/.zshrc
 source ~/.zshrc
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 
 echo "Go versão 1.23.4 instalado com sucesso: $(go version)"
 
 # 4. Instalar o Homebrew sem interação
 echo "Instalando o Homebrew..."
-NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+NONINTERACTIVE="1" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Adicionar Homebrew ao PATH
 echo "Adicionando Homebrew ao PATH..."

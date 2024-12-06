@@ -1,9 +1,6 @@
 setup:
-	@echo "Iniciando a configuração do ambiente..."
 	@chmod +x ./setup.sh
 	@./setup.sh
-	@echo "Configuração do ambiente concluída!
-
 
 .PHONY: proto-buf
 
