@@ -4,6 +4,11 @@
     "title": "servicing/service.proto",
     "version": "version not set"
   },
+  "tags": [
+    {
+      "name": "CRUDService"
+    }
+  ],
   "consumes": [
     "application/json"
   ],
@@ -24,7 +29,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -56,7 +61,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -84,7 +89,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -112,7 +117,7 @@
           "default": {
             "description": "An unexpected error response.",
             "schema": {
-              "$ref": "#/definitions/runtimeError"
+              "$ref": "#/definitions/rpcStatus"
             }
           }
         },
@@ -128,7 +133,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/serviceUpdateItemRequest"
+              "$ref": "#/definitions/CRUDServiceUpdateItemBody"
             }
           }
         ],
@@ -139,24 +144,26 @@
     }
   },
   "definitions": {
-    "protobufAny": {
+    "CRUDServiceUpdateItemBody": {
       "type": "object",
       "properties": {
-        "type_url": {
+        "name": {
           "type": "string"
-        },
-        "value": {
-          "type": "string",
-          "format": "byte"
         }
       }
     },
-    "runtimeError": {
+    "protobufAny": {
       "type": "object",
       "properties": {
-        "error": {
+        "@type": {
           "type": "string"
-        },
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
         "code": {
           "type": "integer",
           "format": "int32"
@@ -167,6 +174,7 @@
         "details": {
           "type": "array",
           "items": {
+            "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
         }
@@ -198,17 +206,6 @@
       }
     },
     "serviceGetItemResponse": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "serviceUpdateItemRequest": {
       "type": "object",
       "properties": {
         "id": {
