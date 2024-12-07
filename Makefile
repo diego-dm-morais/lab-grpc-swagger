@@ -6,10 +6,12 @@ setup:
 
 .PHONY: protoc
 protoc:
-	@protoc -I ./proto \
-			--go_out ./proto --go_opt paths=source_relative \
-			--go-grpc_out ./proto --go-grpc_opt paths=source_relative \
-			--grpc-gateway_out ./proto --grpc-gateway_opt paths=source_relative \
+	@protoc -I=proto \
+			--go_out=./proto --go_opt=paths=source_relative \
+			--go-grpc_out=./proto --go-grpc_opt=paths=source_relative \
+			--grpc-gateway_out=./proto --grpc-gateway_opt=paths=source_relative \
+			--swagger_out=logtostderr=true:./proto \
+			--plugin=protoc-gen-swagger=$(GOPATH)/bin/protoc-gen-swagger \
 			./proto/servicing/service.proto
 
 install:

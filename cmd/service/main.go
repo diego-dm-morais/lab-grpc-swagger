@@ -9,8 +9,8 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 
-	proto "github.com/diego-dm-morais/lab-grpc-swagger/proto/servicing"
 	"github.com/diego-dm-morais/lab-grpc-swagger/internal/service"
+	proto "github.com/diego-dm-morais/lab-grpc-swagger/proto/servicing"
 )
 
 func main() {
@@ -40,7 +40,8 @@ func main() {
 	}
 
 	// Serve a documentação Swagger
-	http.Handle("/swagger/", http.StripPrefix("/swagger", http.FileServer(http.Dir("./"))))
+	http.Handle("/swagger/", http.StripPrefix("/swagger", http.FileServer(http.Dir("./proto/servicing"))))
+
 	log.Println("Servidor REST rodando em :8080")
 	http.ListenAndServe(":8080", mux)
 }
