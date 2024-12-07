@@ -39,7 +39,7 @@ go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
- go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger@latest
+go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger@latest
 
 echo "Go versão 1.23.4 instalado com sucesso: $(go version)"
 
@@ -60,7 +60,14 @@ if command -v buf &> /dev/null; then
     brew uninstall buf
 fi
 
-# 6. Instalar a última versão do `protoc`
+# 6. Verificar se o `protoc` já está instalado
+if command -v protoc &> /dev/null; then
+    echo "Protoc já está instalado. Removendo a versão existente..."
+    rm -rf $HOME/protoc
+    sudo rm -rf /usr/local/bin/protoc
+fi
+
+# 7. Instalar a última versão do `protoc`
 echo "Baixando o Protocol Buffers (protoc)..."
 curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v21.10/protoc-21.10-linux-x86_64.zip
 

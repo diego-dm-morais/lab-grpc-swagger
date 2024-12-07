@@ -1,1 +1,3 @@
 proto/servicing/*.go
+
+api/openapi/servicing/*.json
