@@ -5,8 +5,6 @@ setup:
 	@./script/setup.sh
 
 
-
-
 .PHONY: protoc
 protoc:
 	@protoc -I=./proto \
@@ -37,3 +35,7 @@ install:
 .PHONY: run
 run:
 	@go run $(SERVICE_DIR)/main.go
+
+
+format:
+	@find . -name "*.go" -exec gofmt -w {} \;
