@@ -37,6 +37,8 @@ echo "export PATH=\$PATH:\$GOPATH/bin" >> ~/.zshrc
 source ~/.zshrc
 go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
+go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 
 echo "Go versão 1.23.4 instalado com sucesso: $(go version)"
 
@@ -51,16 +53,27 @@ source ~/.zshrc
 
 echo "Homebrew instalado com sucesso: $(brew --version)"
 
-# 5. Verificar se o buf já está instalado
+# 5. Remover o `buf` caso esteja instalado
 if command -v buf &> /dev/null; then
     echo "buf já está instalado. Removendo a versão existente..."
     brew uninstall buf
 fi
 
-# 6. Instalar a última versão do buf com Homebrew
-echo "Instalando a última versão do buf com Homebrew..."
-brew install bufbuild/buf/buf
+# 6. Instalar a última versão do `protoc`
+echo "Baixando o Protocol Buffers (protoc)..."
+curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v21.10/protoc-21.10-linux-x86_64.zip
 
-echo "buf instalado com sucesso: $(buf --version)"
+echo "Extraindo o protoc..."
+unzip protoc-21.10-linux-x86_64.zip -d $HOME/protoc
+
+# Adicionar ao PATH
+echo "Adicionando o `protoc` ao PATH..."
+echo "export PATH=\$PATH:$HOME/protoc/bin" >> ~/.zshrc
+source ~/.zshrc
+
+# Remover o arquivo de instalação
+rm protoc-21.10-linux-x86_64.zip
+
+echo "Protocol Buffers (protoc) instalado com sucesso: $(protoc --version)"
 
 echo "Script concluído com sucesso!"

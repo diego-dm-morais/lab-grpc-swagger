@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package service;
+
+option go_package = "github.com/diego-dm-morais/lab-grpc-swagger/api/proto";
+
+// Import necessário para gRPC-Gateway
+import "google/api/annotations.proto";
+
+// Serviço CRUD
+service CRUDService {
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
+    option (google.api.http) = {
+      post: "/v1/items"
+      body: "*"
+    };
+  }
+
+  rpc GetItem(GetItemRequest) returns (GetItemResponse) {
+    option (google.api.http) = {
+      get: "/v1/items/{id}"
+    };
+  }
+
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {
+    option (google.api.http) = {
+      put: "/v1/items/{id}"
+      body: "*"
+    };
+  }
+
+  rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {
+    option (google.api.http) = {
+      delete: "/v1/items/{id}"
+    };
+  }
+}
+
+// Mensagens
+message CreateItemRequest {
+  string name = 1;
+}
+
+message CreateItemResponse {
+  string id = 1;
+}
+
+message GetItemRequest {
+  string id = 1;
+}
+
+message GetItemResponse {
+  string id = 1;
+  string name = 2;
+}
+
+message UpdateItemRequest {
+  string id = 1;
+  string name = 2;
+}
+
+message UpdateItemResponse {
+  string id = 1;
+}
+
+message DeleteItemRequest {
+  string id = 1;
+}
+
+message DeleteItemResponse {
+  string status = 1;
+}
