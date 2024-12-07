@@ -3,13 +3,9 @@ module github.com/diego-dm-morais/lab-grpc-swagger
 go 1.23.4
 
 require (
+	google.golang.org/genproto/googleapis/api v0.0.0-20241206012308-a4fef0638583
 	google.golang.org/grpc v1.68.1
 	google.golang.org/protobuf v1.35.2
-)
-
-require (
-	google.golang.org/genproto/googleapis/api v0.0.0-20241206012308-a4fef0638583 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 require (
