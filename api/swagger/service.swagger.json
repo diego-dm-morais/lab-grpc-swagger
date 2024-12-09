@@ -16,11 +16,16 @@
   },
   "tags": [
     {
+      "name": "Items",
+      "description": "Operations related to item management"
+    },
+    {
       "name": "CRUDService"
     }
   ],
+  "host": "api.example.com",
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
@@ -85,6 +90,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "The unique identifier of the item to retrieve.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -115,6 +121,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "The unique identifier of the item to delete.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -145,6 +152,7 @@
         "parameters": [
           {
             "name": "id",
+            "description": "The unique identifier of the item to update.",
             "in": "path",
             "required": true,
             "type": "string"
@@ -169,7 +177,8 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The updated name of the item."
         }
       }
     },
@@ -204,6 +213,10 @@
     "serviceCreateItemRequest": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "description": "The unique identifier of the item to create."
+        },
         "name": {
           "type": "string",
           "description": "The name of the item to create."
@@ -224,7 +237,8 @@
       "type": "object",
       "properties": {
         "status": {
-          "type": "string"
+          "type": "string",
+          "description": "The status of the deletion operation."
         }
       }
     },
@@ -232,10 +246,12 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "The unique identifier of the retrieved item."
         },
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The name of the retrieved item."
         }
       }
     },
@@ -243,7 +259,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "The unique identifier of the updated item."
         }
       }
     }

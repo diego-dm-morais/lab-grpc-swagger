@@ -4,9 +4,9 @@ package service;
 
 option go_package = "github.com/diego-dm-morais/lab-grpc-swagger/api/proto";
 
-// Import necessário para gRPC-Gateway
+// Imports necessários
 import "google/api/annotations.proto";
-import "protoc-gen-openapiv2/options/annotations.proto"; // Adicionado
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
@@ -23,13 +23,20 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
       url: "https://www.apache.org/licenses/LICENSE-2.0.html"
     }
   }
-  schemes: HTTP
+  schemes: HTTPS
   produces: "application/json"
   consumes: "application/json"
+  host: "api.example.com"
+  tags: [
+    { 
+      name: "Items"
+      description: "Operations related to item management"
+    }
+  ]
 };
+
 service CRUDService {
   rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
-   
     option (google.api.http) = {
       post: "/v1/items"
       body: "*"
@@ -78,7 +85,10 @@ service CRUDService {
 
 // Mensagens
 message CreateItemRequest {
-  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the item to create."
+  }];
+  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: "The name of the item to create."
   }];
 }
@@ -90,27 +100,43 @@ message CreateItemResponse {
 }
 
 message GetItemRequest {
-  string id = 1;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the item to retrieve."
+  }];
 }
 
 message GetItemResponse {
-  string id = 1;
-  string name = 2;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the retrieved item."
+  }];
+  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The name of the retrieved item."
+  }];
 }
 
 message UpdateItemRequest {
-  string id = 1;
-  string name = 2;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the item to update."
+  }];
+  string name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The updated name of the item."
+  }];
 }
 
 message UpdateItemResponse {
-  string id = 1;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the updated item."
+  }];
 }
 
 message DeleteItemRequest {
-  string id = 1;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the item to delete."
+  }];
 }
 
 message DeleteItemResponse {
-  string status = 1;
+  string status = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The status of the deletion operation."
+  }];
 }

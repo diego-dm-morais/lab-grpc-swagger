@@ -7,24 +7,24 @@ setup:
 	@chmod +x ./script/setup.sh
 	@./script/setup.sh
 
+.PHONY: clean-swagger
+clean-swagger:
+	@rm -rf $(SWAGGER_DIR)/service.swagger.json
+
+
 .PHONY: protoc
-protoc:
+protoc: clean-swagger
 	@protoc -I=$(PROTO_DIR) \
 			--go_out=$(PROTO_DIR) --go_opt=paths=source_relative \
 			--go-grpc_out=$(PROTO_DIR) --go-grpc_opt=paths=source_relative \
 			--grpc-gateway_out=$(PROTO_DIR) --grpc-gateway_opt=paths=source_relative \
 			--grpc-gateway_opt generate_unbound_methods=true \
-			$(PROTO_DIR)/service.proto
+			-I=$(PROTO_DIR)/protoc-gen-openapiv2/options/ \
+			--openapiv2_out=logtostderr=true:$(SWAGGER_DIR) \
+			$(PROTO_DIR)/service.proto \
 
-.PHONY: clean-swagger
-clean-swagger:
-	@rm -f $(SWAGGER_DIR)/service.swagger.json
 
-swagger: clean-swagger
-	@protoc -I=$(PROTO_DIR) \
-		-I$(PROTO_DIR)/protoc-gen-openapiv2/options/ \
-		--openapiv2_out=logtostderr=true:$(SWAGGER_DIR) \
-		$(PROTO_DIR)/service.proto
+
 
 	
 
