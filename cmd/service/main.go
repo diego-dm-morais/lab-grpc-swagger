@@ -44,7 +44,7 @@ func main() {
 	http.Handle("/", mux)
 
 	// Serve o Swagger UI
-	http.Handle("/docs", http.StripPrefix("/docs", http.FileServer(http.Dir("./api/swagger/swagger-ui"))))
+	http.Handle("/docs", http.StripPrefix("/docs", http.FileServer(http.Dir("./api/swagger/ui"))))
 
 	// Serve o arquivo JSON gerado pelo protoc
 	http.Handle("/api/swagger/service.swagger.json", http.StripPrefix("/api", http.FileServer(http.Dir("./api"))))
