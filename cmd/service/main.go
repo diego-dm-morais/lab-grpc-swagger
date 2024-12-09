@@ -44,10 +44,10 @@ func main() {
 	http.Handle("/", mux)
 
 	// Serve o Swagger UI
-	http.Handle("/docs", http.StripPrefix("/docs", http.FileServer(http.Dir("./api/openapi/servicing/swagger-ui"))))
+	http.Handle("/docs", http.StripPrefix("/docs", http.FileServer(http.Dir("./api/swagger/swagger-ui"))))
 
 	// Serve o arquivo JSON gerado pelo protoc
-	http.Handle("/api/openapi/servicing/service.swagger.json", http.StripPrefix("/api", http.FileServer(http.Dir("./api"))))
+	http.Handle("/api/swagger/service.swagger.json", http.StripPrefix("/api", http.FileServer(http.Dir("./api"))))
 
 	log.Println("Servidor REST rodando em :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))

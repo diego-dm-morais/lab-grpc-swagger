@@ -7,23 +7,23 @@ setup:
 
 .PHONY: protoc
 protoc:
-	@protoc -I=./proto \
-			--go_out=./proto --go_opt=paths=source_relative \
-			--go-grpc_out=./proto --go-grpc_opt=paths=source_relative \
-			--grpc-gateway_out=./proto --grpc-gateway_opt=paths=source_relative \
+	@protoc -I=./api/proto \
+			--go_out=./api/proto --go_opt=paths=source_relative \
+			--go-grpc_out=./api/proto --go-grpc_opt=paths=source_relative \
+			--grpc-gateway_out=./api/proto --grpc-gateway_opt=paths=source_relative \
 			--grpc-gateway_opt generate_unbound_methods=true \
-			./proto/servicing/service.proto
+			./api/proto/service.proto
 
 
 .PHONY: clean-swagger
 clean-swagger:
-	@rm -f ./api/openapi/servicing/service.swagger.json
+	@rm -f ./api/swagger/service.swagger.json
 
 swagger: clean-swagger
-	@protoc -I=./proto \
+	@protoc -I=./api/proto \
 			--plugin=protoc-gen-swagger=$(GOPATH)/bin/protoc-gen-swagger \
-			--openapiv2_out ./api/openapi \
-			./proto/servicing/service.proto
+			--openapiv2_out ./api/swagger \
+			./api/proto/service.proto
 
 clean-mod:
 	@go mod tidy
