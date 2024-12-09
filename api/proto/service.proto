@@ -27,12 +27,6 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   produces: "application/json"
   consumes: "application/json"
   host: "api.example.com"
-  tags: [
-    { 
-      name: "Items"
-      description: "Operations related to item management"
-    }
-  ]
 };
 
 service CRUDService {

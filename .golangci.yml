@@ -1,0 +1,16 @@
+linters:
+  enable:
+    - errcheck
+    - govet
+    - staticcheck
+    - unused
+    - gosimple
+
+run:
+  timeout: 2m
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck

@@ -8,9 +8,10 @@ import (
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
-	"github.com/diego-dm-morais/lab-grpc-swagger/internal/service"
 	proto "github.com/diego-dm-morais/lab-grpc-swagger/api/proto"
+	"github.com/diego-dm-morais/lab-grpc-swagger/internal/service"
 )
 
 func main() {
@@ -35,7 +36,7 @@ func main() {
 
 	// Inicia o servidor REST usando gRPC-Gateway
 	mux := runtime.NewServeMux()
-	opts := []grpc.DialOption{grpc.WithInsecure()}
+	opts := []grpc.DialOption{grpc.WithTransportCredentials(insecure.NewCredentials())}
 	if err := proto.RegisterCRUDServiceHandlerFromEndpoint(context.Background(), mux, ":50051", opts); err != nil {
 		log.Fatalf("Falha ao iniciar gRPC-Gateway: %v", err)
 	}

@@ -29,6 +29,7 @@ tar -C $HOME -xzf go1.23.4.linux-amd64.tar.gz
 rm go1.23.4.linux-amd64.tar.gz
 
 # 3. Configurar o Go no PATH
+echo "Go versão 1.23.4 instalado com sucesso: $(go version)"
 echo "Configurando o PATH para Go..."
 echo "export GOPATH=$HOME/go" >> ~/.zshrc
 echo "export GOROOT=$GOPATH" >> ~/.zshrc
@@ -40,8 +41,7 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-grpc-gateway@latest
 go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 go install github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger@latest
-
-echo "Go versão 1.23.4 instalado com sucesso: $(go version)"
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 # 4. Instalar o Homebrew sem interação
 echo "Instalando o Homebrew..."

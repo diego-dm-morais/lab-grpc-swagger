@@ -7,10 +7,16 @@ setup:
 	@chmod +x ./script/setup.sh
 	@./script/setup.sh
 
+install:
+	@go mod download
+
+clean-mod:
+	@go mod tidy
+
+
 .PHONY: clean-swagger
 clean-swagger:
 	@rm -rf $(SWAGGER_DIR)/service.swagger.json
-
 
 .PHONY: protoc
 protoc: clean-swagger
@@ -23,20 +29,13 @@ protoc: clean-swagger
 			--openapiv2_out=logtostderr=true:$(SWAGGER_DIR) \
 			$(PROTO_DIR)/service.proto \
 
+format:
+	@find . -name "*.go" -exec gofmt -w {} \;
 
-
-
-	
-
-clean-mod:
-	@go mod tidy
-
-install:
-	@go mod download
+lint:
+	@golangci-lint run ./...
 
 .PHONY: run
 run:
 	@go run $(SERVICE_DIR)/main.go
 
-format:
-	@find . -name "*.go" -exec gofmt -w {} \;
