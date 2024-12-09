@@ -28,8 +28,6 @@ const (
 // CRUDServiceClient is the client API for CRUDService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-//
-// Serviço CRUD
 type CRUDServiceClient interface {
 	CreateItem(ctx context.Context, in *CreateItemRequest, opts ...grpc.CallOption) (*CreateItemResponse, error)
 	GetItem(ctx context.Context, in *GetItemRequest, opts ...grpc.CallOption) (*GetItemResponse, error)
@@ -88,8 +86,6 @@ func (c *cRUDServiceClient) DeleteItem(ctx context.Context, in *DeleteItemReques
 // CRUDServiceServer is the server API for CRUDService service.
 // All implementations must embed UnimplementedCRUDServiceServer
 // for forward compatibility.
-//
-// Serviço CRUD
 type CRUDServiceServer interface {
 	CreateItem(context.Context, *CreateItemRequest) (*CreateItemResponse, error)
 	GetItem(context.Context, *GetItemRequest) (*GetItemResponse, error)

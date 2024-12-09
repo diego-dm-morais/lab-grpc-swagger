@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/diego-dm-morais/lab-grpc-swagger/internal/service"
-	proto "github.com/diego-dm-morais/lab-grpc-swagger/proto/servicing"
+	proto "github.com/diego-dm-morais/lab-grpc-swagger/api/proto"
 )
 
 func main() {

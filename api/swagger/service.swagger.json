@@ -1,13 +1,26 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "service.proto",
-    "version": "version not set"
+    "title": "CRUD API",
+    "description": "This is a CRUD API to manage items with gRPC and REST support.",
+    "version": "1.0",
+    "contact": {
+      "name": "Support Team",
+      "url": "https://example.com/support",
+      "email": "support@example.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
   },
   "tags": [
     {
       "name": "CRUDService"
     }
+  ],
+  "schemes": [
+    "http"
   ],
   "consumes": [
     "application/json"
@@ -18,6 +31,8 @@
   "paths": {
     "/v1/items": {
       "post": {
+        "summary": "Create a new item",
+        "description": "This endpoint allows creating a new item by providing its details.",
         "operationId": "CRUDService_CreateItem",
         "responses": {
           "200": {
@@ -44,12 +59,14 @@
           }
         ],
         "tags": [
-          "CRUDService"
+          "Items"
         ]
       }
     },
     "/v1/items/{id}": {
       "get": {
+        "summary": "Retrieve an item",
+        "description": "Fetch the details of an item using its unique identifier.",
         "operationId": "CRUDService_GetItem",
         "responses": {
           "200": {
@@ -74,10 +91,12 @@
           }
         ],
         "tags": [
-          "CRUDService"
+          "Items"
         ]
       },
       "delete": {
+        "summary": "Delete an item",
+        "description": "Remove an item permanently using its unique identifier.",
         "operationId": "CRUDService_DeleteItem",
         "responses": {
           "200": {
@@ -102,10 +121,12 @@
           }
         ],
         "tags": [
-          "CRUDService"
+          "Items"
         ]
       },
       "put": {
+        "summary": "Update an item",
+        "description": "Update an item's details using its unique identifier.",
         "operationId": "CRUDService_UpdateItem",
         "responses": {
           "200": {
@@ -138,7 +159,7 @@
           }
         ],
         "tags": [
-          "CRUDService"
+          "Items"
         ]
       }
     }
@@ -184,7 +205,8 @@
       "type": "object",
       "properties": {
         "name": {
-          "type": "string"
+          "type": "string",
+          "description": "The name of the item to create."
         }
       },
       "title": "Mensagens"
@@ -193,7 +215,8 @@
       "type": "object",
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "The unique identifier of the created item."
         }
       }
     },

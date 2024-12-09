@@ -6,19 +6,49 @@ option go_package = "github.com/diego-dm-morais/lab-grpc-swagger/api/proto";
 
 // Import necessário para gRPC-Gateway
 import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto"; // Adicionado
 
-// Serviço CRUD
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "CRUD API"
+    version: "1.0"
+    description: "This is a CRUD API to manage items with gRPC and REST support."
+    contact: {
+      name: "Support Team"
+      url: "https://example.com/support"
+      email: "support@example.com"
+    }
+    license: {
+      name: "Apache 2.0"
+      url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  }
+  schemes: HTTP
+  produces: "application/json"
+  consumes: "application/json"
+};
 service CRUDService {
   rpc CreateItem(CreateItemRequest) returns (CreateItemResponse) {
+   
     option (google.api.http) = {
       post: "/v1/items"
       body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Items"
+      summary: "Create a new item"
+      description: "This endpoint allows creating a new item by providing its details."
     };
   }
 
   rpc GetItem(GetItemRequest) returns (GetItemResponse) {
     option (google.api.http) = {
       get: "/v1/items/{id}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Items"
+      summary: "Retrieve an item"
+      description: "Fetch the details of an item using its unique identifier."
     };
   }
 
@@ -27,22 +57,36 @@ service CRUDService {
       put: "/v1/items/{id}"
       body: "*"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Items"
+      summary: "Update an item"
+      description: "Update an item's details using its unique identifier."
+    };
   }
 
   rpc DeleteItem(DeleteItemRequest) returns (DeleteItemResponse) {
     option (google.api.http) = {
       delete: "/v1/items/{id}"
     };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      tags: "Items"
+      summary: "Delete an item"
+      description: "Remove an item permanently using its unique identifier."
+    };
   }
 }
 
 // Mensagens
 message CreateItemRequest {
-  string name = 1;
+  string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The name of the item to create."
+  }];
 }
 
 message CreateItemResponse {
-  string id = 1;
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+    description: "The unique identifier of the created item."
+  }];
 }
 
 message GetItemRequest {

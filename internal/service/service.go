@@ -1,11 +1,15 @@
 package service
+
 import (
 	"context"
-	proto "github.com/diego-dm-morais/lab-grpc-swagger/proto/servicing"
+
+	proto "github.com/diego-dm-morais/lab-grpc-swagger/api/proto"
 )
+
 type CRUDService struct {
 	proto.UnimplementedCRUDServiceServer
 }
+
 func (s *CRUDService) CreateItem(ctx context.Context, req *proto.CreateItemRequest) (*proto.CreateItemResponse, error) {
 	// Lógica para criar um item
 	return &proto.CreateItemResponse{Id: "12345"}, nil
